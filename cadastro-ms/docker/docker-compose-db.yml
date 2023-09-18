@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: cadastro
+      POSTGRES_PASSWORD: rootroot
+      POSTGRES_DB: cadastro
+    ports:
+      - 5432:5432
+    networks:
+      - app_db
+    hostname: db
+    container_name: db
+networks:
+  app_db:
