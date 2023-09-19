@@ -1,5 +1,6 @@
 package com.polligonalApps.cadastroms.model;
 
+import com.polligonalApps.cadastroms.model.constants.TipoMovimentacao;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,10 +20,21 @@ public class HistoricoUsuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATA_ACESSO")
     private LocalDateTime dataAcesso;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "TIPO_MOVIMENTACAO")
+    private TipoMovimentacao tipoMovimentacao;
 
     @ManyToOne
     @JoinColumn(name = "USUARIO_ID",nullable = false)
     private Usuario usuario;
+
+    public HistoricoUsuario(TipoMovimentacao tipoMovimentacao, Usuario usuario) {
+        this.dataAcesso = LocalDateTime.now();
+        this.tipoMovimentacao = tipoMovimentacao;
+        this.usuario = usuario;
+    }
 }
